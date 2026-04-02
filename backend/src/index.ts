@@ -1,15 +1,9 @@
-import express from "express"
-import cors from "cors"
+import app from "./app";
 
-const app = express()
+app.get("/", (req, res) => {
+  res.send("keep alive");
+});
 
-app.use(cors())
-app.use(express.json())
-
-app.get("/", (req, res)=>{
-    res.send("all ok")
-})
-
-app.listen(3000, ()=>{
-    console.log("listening on port 3000")
-})
+app.listen(3000, () => {
+  console.log("listening on port 3000");
+});
