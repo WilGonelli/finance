@@ -7,8 +7,63 @@ datasource db {
   provider = "postgresql"
 }
 
-model Bills {
-  id Int @id @default(autoincrement())
-  name String @unique
-  
+enum EntryType {
+  INCOME
+  PAYMENT
+  FIXED_EXPENSE
+  VARIABLE_EXPENSE
+  INSTALLMENT_EXPENSE
+  INVESTMENT
+  TRANSFER
+}
+
+model Entries {
+  id           Int       @id @default(autoincrement())
+  name         String
+  type         EntryType
+  records      Records[]
+  investiments Investments[]
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+}
+
+model Records {
+  id                   Int       @id @default(autoincrement())
+  entries              Entries   @relation(fields: [entries_id], references: [id])
+  entries_id           Int
+  value                Float
+  date                 DateTime
+  description          String?
+  category             Category? @relation(fields: [category_id], references: [id])
+  category_id          Int?
+  account              Account?  @relation(fields: [account_id], references: [id])
+  account_id           Int?
+  currency             String?   // Ex: "BRL", "USD"
+  is_recurring         Boolean   @default(false)
+  installment_total    Int?
+  installment_relative Int?
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  records   Records[]
+}
+
+model Account {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  type      String    // Ex: "Checking", "Savings", "Credit Card"
+  records   Records[]
+}
+
+model Investments {
+  id            Int       @id @default(autoincrement())
+  name          String
+  asset_type    String    // Ex: "Stock", "Fund", "Crypto"
+  amount        Float
+  purchase_date DateTime
+  current_value Float?
+  entries       Entries?  @relation(fields: [entries_id], references: [id])
+  entries_id    Int?
 }
