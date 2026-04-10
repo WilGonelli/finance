@@ -1,9 +1,9 @@
 {
-  "include": ["src/**/*"],
+  "include": ["src"],
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "module": "ESNext",
+    "module": "commonjs",
     "moduleResolution": "bundler",
     "target": "ES2023",
     "esModuleInterop": true,
