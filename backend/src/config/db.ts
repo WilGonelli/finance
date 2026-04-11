@@ -1,7 +1,8 @@
+import "dotenv";
 import { Pool } from "pg";
 
-const USER = process.env.POSTGRES_USER || "postgres";
-const PASSWORD = process.env.POSTGRES_PASSWORD || "postgres";
+const USER = process.env.POSTGRES_USER || "admin";
+const PASSWORD = process.env.POSTGRES_PASSWORD || "senha123";
 const DATABASE = process.env.POSTGRES_DB || "finance";
 
 const pool = new Pool({
