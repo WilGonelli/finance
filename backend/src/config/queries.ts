@@ -3,7 +3,8 @@ export const queries = {
   getEntries: "SELECT * FROM Entries;",
   insertRecords:
     "INSERT INTO Records(entry_id, value, description, installment_total, installment_relative, relative_date, account) VALUES ($1, $2, $3, $4, $5, $6, $7);",
-  getRecords: "SELECT * FROM Records;",
+  getRecords:
+    "SELECT e.*, r.* FROM Entries as e JOIN Records as r ON e.id = r.entry_id;",
   typeEnum:
     "SELECT enumlabel FROM pg_enum WHERE enumtypid = 'entry_type'::regtype ORDER BY enumsortorder;",
   accountEnum:
