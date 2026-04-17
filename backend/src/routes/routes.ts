@@ -1,56 +1,28 @@
 import { Router } from "express";
 import type { Request, Response } from "express";
-import { db_connection } from "../config/db";
-import { queries } from "../config/queries";
-import type { EntryModel, RecordsModel } from "../models/EntryModel";
+import { db_connection } from "../infra/database/connection";
+import { queries } from "../infra/database/queries";
+import type { IAccounts } from "../domain/models/AccountModel";
 
 const router = Router();
 
-router.get("/entries", async (req: Request, res: Response) => {
-  const response: EntryModel[] = (await db_connection.query(queries.getEntries))
-    .rows;
-  res.send(response);
-});
-
-router.get("/records", async (req: Request, res: Response) => {
-  const response: RecordsModel[] = (
-    await db_connection.query(queries.getRecords)
+router.get("/accounts", async (req: Request, res: Response) => {
+  const response: IAccounts[] = (
+    await db_connection.query(queries.selectAccounts)
   ).rows;
-  res.send(response);
+  res.status(200).send(response);
 });
 
-router.get("/account-enum", async (req: Request, res: Response) => {
-  const response = await db_connection.query(queries.accountEnum);
-  res.send(response.rows);
-});
-
-router.get("/type-enum", async (req: Request, res: Response) => {
-  const response = await db_connection.query(queries.typeEnum);
-  res.send(response.rows);
-});
-
-router.post("/entries", async (req: Request, res: Response) => {
-  const body: EntryModel = req.body;
-  const response = await db_connection.query(queries.insertEntry, [
+router.post("/account", async (req: Request, res: Response) => {
+  const body: IAccounts = req.body;
+  const response = await db_connection.query(queries.createAccount, [
     body.name,
-    body.type,
+    body.type.toUpperCase(),
+    body.credit_limit || null,
+    body.closing_day || null,
+    body.due_day || null,
   ]);
-  res.send("ok");
-});
-
-router.post("/records", async (req: Request, res: Response) => {
-  const body: RecordsModel = req.body;
-  if (!body.entry_id || !body.value || !body.account) res.send("nok");
-  const response = await db_connection.query(queries.insertRecords, [
-    body.entry_id,
-    body.value,
-    body.description || "",
-    body.installment_total || 1,
-    body.installment_relative || 1,
-    body.relative_date,
-    body.account.toUpperCase(),
-  ]);
-  res.send("ok");
+  res.status(201).send("conta criada com sucesso");
 });
 
 export default router;
