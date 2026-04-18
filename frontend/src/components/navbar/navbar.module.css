@@ -1,0 +1,44 @@
+.navbar {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 24px;
+    border-right: #8B94A7 1px solid;
+    background-color: #11141A;
+
+
+    & p {
+        background-color: #1D2330;
+        padding: 4px;
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+        color: aliceblue;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        transition: background-color 1s ease-in-out;
+        -webkit-transition: background-color 1s ease-in-out;
+        -moz-transition: background-color 1s ease-in-out;
+        -ms-transition: background-color 1s ease-in-out;
+        -o-transition: background-color 1s ease-in-out;
+        cursor: pointer;
+    }
+
+    & p:hover:not(.activate) {
+        background-color: aliceblue;
+        color: black;
+    }
+
+    & .activate {
+        background-color: #6C5CE7;
+        color: aliceblue;
+        cursor: default;
+    }
+}
+
+.icon {
+    font-size: 24px;
+}
