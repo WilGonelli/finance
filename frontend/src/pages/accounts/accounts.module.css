@@ -5,3 +5,53 @@
     display: flex;
     background-color: #0F1115;
 }
+
+.body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    color: aliceblue;
+    padding: 18px;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: end;
+    padding: 0 24px;
+
+    & button {
+        all: unset;
+        padding: 12px;
+        background-color: aliceblue;
+        display: flex;
+        align-items: center;
+        transition: background-color .5s ease-in-out, box-shadow .5s ease-in-out, color .5s ease-in-out;
+        cursor: pointer;
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+        -webkit-transition: background-color .5s ease-in-out, box-shadow .5s ease-in-out, color .5s ease-in-out;
+        -moz-transition: background-color .5s ease-in-out, box-shadow .5s ease-in-out, color .5s ease-in-out;
+        -ms-transition: background-color .5s ease-in-out, box-shadow .5s ease-in-out, color .5s ease-in-out;
+        -o-transition: background-color .5s ease-in-out, box-shadow .5s ease-in-out, color .5s ease-in-out;
+    }
+
+    & button:hover {
+        background-color: rgb(122, 122, 122);
+        box-shadow: 0 0 0 2px rgb(238, 238, 238);
+        color: aliceblue;
+    }
+}
+
+.icon {
+    font-size: 18px;
+    margin-right: 12px;
+}
